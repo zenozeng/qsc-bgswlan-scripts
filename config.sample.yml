@@ -20,3 +20,7 @@ load-banlancing:
   - wlan0-1
 
   - br-lan
+
+# in case that sometimes fail to connect ssh
+# use only one interface for ssh
+default-ssh-interface: wlan1
