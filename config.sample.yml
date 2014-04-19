@@ -1,0 +1,22 @@
+---
+zjuwlan:
+
+  - user: user1
+    password: password1
+    interface: wlan1
+
+  - user: user2
+    password: password2
+    interface: wlan0-1
+
+vpn:
+
+  interface: br-lan
+
+load-banlancing:
+
+  - wlan1
+
+  - wlan0-1
+
+  - br-lan
