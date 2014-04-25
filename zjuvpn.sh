@@ -170,17 +170,6 @@ setup_route()
     echo -n "[MSG] Setting up route table...  "
 
     ip route add  10.0.0.0/8 via $GW
-    # echo -n ">>>>>>>>>>>>"
-    # echo -n $GW
-    # echo -n "<<<<<<<<<<<<"
-
-    # ip route add   0.0.0.0/1 dev $PPP #2>/dev/null
-
-    # 下面这个加上会直接负载均衡失败
-    # ip route add 128.0.0.0/1 dev $PPP #2>/dev/null
-
-    #ip route del default via $GW
-    #ip route add default dev $PPP
     
     echo "Done!"
 }
