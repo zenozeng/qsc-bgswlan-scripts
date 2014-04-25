@@ -42,4 +42,5 @@ echo "GW2:$GW2"
 # Set up IP Route
 ip route delete default
 ip route add default nexthop dev ppp0 nexthop via $GW1 dev wlan1 nexthop via $GW2 dev wlan0-1
+# ip route add default nexthop via $GW1 dev wlan1 nexthop via $GW2 dev wlan0-1
 # ip route add default nexthop dev ppp0 nexthop via 10.189.0.1 dev wlan1 nexthop via 10.189.128.1 dev wlan0-1
