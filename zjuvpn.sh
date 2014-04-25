@@ -3,6 +3,9 @@
 # A modified version of
 # http://www.cc98.org/dispbbs.asp?boardID=212&ID=4011172
 
+# 有的路由器上没有这个目录创建之
+mkdir -p /etc/ppp/peers
+
 ## LAC name in config file
 L2TPD_LAC=zjuvpn
 L2TPD_CONTROL_FILE=/var/run/xl2tpd/l2tp-control
@@ -81,7 +84,7 @@ EOF
     if [ ! -e "$L2TPD_CFG_FILE" ]; then
         cp -f $L2TPD_CFG_TMPL $L2TPD_CFG_FILE
     elif ! grep -q "\[lac $L2TPD_LAC\]" $L2TPD_CFG_FILE; then
-        sed -n '9~1p' $L2TPD_CFG_TMPL >> $L2TPD_CFG_FILE
+        tail -n+9 $L2TPD_CFG_TMPL >> $L2TPD_CFG_FILE
     fi
 
     if [ ! -e "$PPP_OPT_FILE" ]; then
@@ -166,10 +169,15 @@ setup_route()
     echo "[MSG] Detected gateway: $GW, PPP device: $PPP ."
     echo -n "[MSG] Setting up route table...  "
 
-    ip route add  10.0.0.0/8 via $GW  #2>/dev/null
+    ip route add  10.0.0.0/8 via $GW
+    # echo -n ">>>>>>>>>>>>"
+    # echo -n $GW
+    # echo -n "<<<<<<<<<<<<"
 
-    ip route add   0.0.0.0/1 dev $PPP #2>/dev/null
-    ip route add 128.0.0.0/1 dev $PPP #2>/dev/null
+    # ip route add   0.0.0.0/1 dev $PPP #2>/dev/null
+
+    # 下面这个加上会直接负载均衡失败
+    # ip route add 128.0.0.0/1 dev $PPP #2>/dev/null
 
     #ip route del default via $GW
     #ip route add default dev $PPP
